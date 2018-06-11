@@ -27,7 +27,6 @@ function successAjax(xhttp) {
   createHTML(sortedData);
   createFooter(sortedData);
 
-
   searchButton.addEventListener("click", function () {
     searchModel(sortedData, searchText.value);
   });
