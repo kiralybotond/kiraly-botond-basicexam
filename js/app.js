@@ -173,7 +173,7 @@ function longestShip(inputData) {
 function createFooter(inputData) {
   var footer = ''
   footer = `Number of ships with a crew of 1 person: ${crewOneCount(inputData)}<br>
-            The name of the shipw with the biggest cargo capacity: ${biggestCargoCapacity(inputData)}<br>
+            The name of the ship with the biggest cargo capacity: ${biggestCargoCapacity(inputData)}<br>
             The sum of passengers of all the ships: ${sumPassengers(inputData)}<br>
             The longest ship: <img src="img/${longestShip(inputData).image}" alt="Picture of ${longestShip(inputData).model}">`;
   document.querySelector('.footer').innerHTML = footer;

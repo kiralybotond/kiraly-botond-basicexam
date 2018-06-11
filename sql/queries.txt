@@ -1,13 +1,13 @@
 1. Kérdezd le, 
 * hogy melyik gyártóhoz hány model tartozik. (Tehát a gyártó neve, és mellé a darabszám.)
-SELECT manufacturer, count(*)
-FROM `transport`
+SELECT manufacturer, count(*) AS db
+FROM transport
 GROUP BY manufacturer
 
 2. Kérdezd le, 
 * a három legnagyobb teherbírással (cargo_capacity) rendelkező hajó model (model) nevét, gyártóját(manufacturer), és képét (image)
 SELECT model, manufacturer, image
-FROM `transport`
+FROM transport
 ORDER BY cargo_capacity DESC
 LIMIT 3 
 
@@ -16,13 +16,13 @@ LIMIT 3
 * melyeknél mind a cargo_capacity, passengers, max_atmospheric_speed, és crew, a crew értéke 1,
 * és a gyártó neve(manufacturer) A-val, B-vel, vagy C-vel kezdődik
 ! A feladat jelen formájában értelmezhetetlen a cargo_capacity, passengers, max_atmospheric_speed, és crew 4-esnek nincs feltétele.
-! Ha a 2. sorban szereplő összes mezőt 1-re szűrjük, akkor nincs eredmény.
+! Ha a 2. sorban szereplő összes feltételt 1-re szűrjük, akkor nincs eredmény.
 SELECT model AS Típus
 FROM transport
 WHERE cargo_capacity = 1 AND passengers = 1 AND max_atmospheric_speed AND crew = 1 AND (manufacturer like "A%" OR manufacturer like "B%" OR manufacturer like "C%")
 
 ! Eredményt az alábbiak szerint tudunk kapni.
-SELECT model AS Típus, cargo_capacity, passengers, max_atmosphering_speed, crew
+SELECT model AS Típus
 FROM transport
 WHERE crew = 1 AND (manufacturer like "A%" OR manufacturer like "B%" OR manufacturer like "C%")
 
