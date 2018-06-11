@@ -1,0 +1,49 @@
+1. Kérdezd le, 
+* hogy melyik gyártóhoz hány model tartozik. (Tehát a gyártó neve, és mellé a darabszám.)
+SELECT manufacturer, count(*)
+FROM `transport`
+GROUP BY manufacturer
+
+2. Kérdezd le, 
+* a három legnagyobb teherbírással (cargo_capacity) rendelkező hajó model (model) nevét, gyártóját(manufacturer), és képét (image)
+SELECT model, manufacturer, image
+FROM `transport`
+ORDER BY cargo_capacity DESC
+LIMIT 3 
+
+3. Kérdezd le 
+* azon hajók model nevét(model), mint Típus, 
+* melyeknél mind a cargo_capacity, passengers, max_atmospheric_speed, és crew, a crew értéke 1,
+* és a gyártó neve(manufacturer) A-val, B-vel, vagy C-vel kezdődik
+! A feladat jelen formájában értelmezhetetlen a cargo_capacity, passengers, max_atmospheric_speed, és crew 4-esnek nincs feltétele.
+! Ha a 2. sorban szereplő összes mezőt 1-re szűrjük, akkor nincs eredmény.
+SELECT model AS Típus
+FROM transport
+WHERE cargo_capacity = 1 AND passengers = 1 AND max_atmospheric_speed AND crew = 1 AND (manufacturer like "A%" OR manufacturer like "B%" OR manufacturer like "C%")
+
+! Eredményt az alábbiak szerint tudunk kapni.
+SELECT model AS Típus, cargo_capacity, passengers, max_atmosphering_speed, crew
+FROM transport
+WHERE crew = 1 AND (manufacturer like "A%" OR manufacturer like "B%" OR manufacturer like "C%")
+
+4. Kérdezd le 
+* azon hajók minden adatát, 
+* melynek gyártójának(manufacturer) nevében szerepel a Corporation szó, 
+* az utasok száma(passangers) nagyobb, mint 0, 
+* az ár(cost_in_creadits) pedig 10000, és 200000 közötti.
+SELECT *
+FROM transport
+WHERE manufacturer LIKE "%Corporation%" AND passengers > 0 AND cost_in_credits BETWEEN 10000 AND 200000
+
+5. Kérdez le az 
+* első három hajó nevét(model), mint Megnevezés, és gyártóját(manufacturer), mint Gyártó 
+* a legénység száma(crew) szerint csoportosítva, 
+* melyeknél a legénység(crew) száma 1 és 5 közötti, 
+* és meg van adva (nem NULL), és nem 0 a passengers, és a cargo_capacity értéke
+! A feleadat nem tiszta, ha csoportosítok, akkor GROUP BY-t használok, de úgy nem értelmezhető a model és gyártó.
+! ORDER BY esetén hiányzik a feladatból, hogy növekvő vagy csökkenő sorrendre van szükség.
+SELECT model AS Megnevezés, manufacturer AS Gyártó, crew
+FROM transport
+WHERE crew BETWEEN 1 AND 5 AND NOT ISNULL(passengers) AND passengers <> 0 AND NOT ISNULL(cargo_capacity) AND cargo_capacity <> 0
+ORDER BY crew
+LIMIT 3
